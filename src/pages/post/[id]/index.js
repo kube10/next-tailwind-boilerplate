@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { server } from "../../../../config";
 import Meta from "../../../components/Meta";
 
 const post = ({ post }) => {
@@ -22,7 +21,9 @@ const post = ({ post }) => {
 
 export const getStaticProps = async (context) => {
   try {
-    const res = await fetch(`${server}/api/posts/${context.params.id}`);
+    const res = await fetch(
+      `http://jsonplaceholder.typicode.com/posts/${context.params.id}`
+    );
     const post = await res.json();
 
     return {

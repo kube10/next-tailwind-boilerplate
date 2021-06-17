@@ -1,4 +1,3 @@
-import { server } from "../../config";
 import "tailwindcss/tailwind.css";
 import Link from "next/link";
 import Meta from "../components/Meta";
@@ -25,7 +24,7 @@ export default blog;
 
 export const getServerSideProps = async () => {
   try {
-    const res = await fetch(`${server}/api/posts`);
+    const res = await fetch("http://jsonplaceholder.typicode.com/posts");
     const posts = await res.json();
 
     return {
