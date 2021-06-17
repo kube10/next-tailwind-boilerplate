@@ -5,7 +5,7 @@ export default function About({}) {
   return (
     <div>
       <Meta title="About us" />
-      <h1>About us</h1>
+      <h1>About page</h1>
     </div>
   );
 }
