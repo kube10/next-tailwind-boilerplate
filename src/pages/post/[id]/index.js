@@ -6,24 +6,33 @@ import Meta from "../../../components/Meta";
 const post = ({ post }) => {
   return (
     <div>
-      <Meta title={post.title} description={post.excerpt} />
-      <h1>{post.title}</h1>
-      <p>{post.body}</p>
-      <br />
-      <Link href="/">Go Back</Link>
+      {post && (
+        <div>
+          {" "}
+          <Meta title={post.title} description={post.excerpt} />
+          <h1>{post.title}</h1>
+          <p>{post.body}</p>
+          <br />
+          <Link href="/">Go Back</Link>
+        </div>
+      )}
     </div>
   );
 };
 
 export const getStaticProps = async (context) => {
-  const res = await fetch(`${server}/api/posts/${context.params.id}`);
-  const post = await res.json();
+  try {
+    const res = await fetch(`${server}/api/posts/${context.params.id}`);
+    const post = await res.json();
 
-  return {
-    props: {
-      post,
-    },
-  };
+    return {
+      props: {
+        post,
+      },
+    };
+  } catch (err) {
+    console.log(err.message);
+  }
 };
 
 export const getStaticPaths = async () => {

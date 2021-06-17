@@ -8,13 +8,14 @@ const blog = ({ posts }) => {
     <div>
       <Meta title="Blog" />
       <ul>
-        {posts.map((post) => (
-          <li key={post.id}>
-            <Link href="/post/[id]" as={`/post/${post.id}`}>
-              {post.title}
-            </Link>
-          </li>
-        ))}
+        {posts &&
+          posts.map((post) => (
+            <li key={post.id}>
+              <Link href="/post/[id]" as={`/post/${post.id}`}>
+                {post.title}
+              </Link>
+            </li>
+          ))}
       </ul>
     </div>
   );
@@ -23,12 +24,16 @@ const blog = ({ posts }) => {
 export default blog;
 
 export const getServerSideProps = async () => {
-  const res = await fetch(`${server}/api/posts`);
-  const posts = await res.json();
+  try {
+    const res = await fetch(`${server}/api/posts`);
+    const posts = await res.json();
 
-  return {
-    props: {
-      posts,
-    },
-  };
+    return {
+      props: {
+        posts,
+      },
+    };
+  } catch (err) {
+    console.log(err.message);
+  }
 };
